@@ -1,6 +1,7 @@
 import unittest
 
 class PycTestCase(unittest.TestCase):
+    
     '''
         @brief init Test case for C lib
     '''
@@ -8,6 +9,12 @@ class PycTestCase(unittest.TestCase):
         super(unittest.TestCase, self).__init__("runTest")
         self.__ffi = None
         self._l = None
+          
+    '''
+        @brief return a null pointer
+    '''
+    def NULL(self): 
+        return self.__ffi.NULL
     
     '''
         @brief set ffi 
@@ -33,6 +40,14 @@ class PycTestCase(unittest.TestCase):
     '''
     def addressof(self, variable):    
         return self.__ffi.addressof(variable)
+    
+    '''
+        @brief get string object for c string
+        @param variable the variable
+        @return the string
+    '''
+    def tostring(self, variable):    
+        return self.__ffi.string(variable)
         
     '''
         @brief set generated lib  
