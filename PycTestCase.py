@@ -17,6 +17,13 @@ class PycTestCase(unittest.TestCase):
         return self.__ffi.NULL
     
     '''
+        @brief call C method with it's name
+    '''
+    def call(self, name):
+        meth = getattr(self, "c_"+name)
+        return meth()
+    
+    '''
         @brief set ffi 
         @param ffi the ffi instance
         @warning only called by PycTester
