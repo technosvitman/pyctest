@@ -11,6 +11,7 @@ import re
 import importlib
 import unittest
 from ctypes import *
+from shutil import copyfile
 from . import *
 
 class PycTester():
@@ -20,6 +21,21 @@ class PycTester():
         self.__sources = ""
         self.__includes = ""
         self.__testcases = unittest.TestSuite()
+        self.__loadedfiles = []
+    
+    '''
+        @brief prepare file for compilation by copying to main directory
+        @return temporary filename
+    '''
+    def __prepare(self, path):
+        rel = os.path.relpath(path)
+        dirname = os.path.dirname(rel)
+        filename = os.path.basename(rel)
+        if dirname != "":
+            copyfile(path, filename)
+            self.__loadedfiles.append(filename)
+            return filename
+        return path
         
     '''
         @brief load from c string
@@ -43,6 +59,7 @@ class PycTester():
     '''
     def load_source_file(self, filename): 
         # load source code
+        filename=self.__prepare(filename)
         self.load_source(str(open(filename).read()))
         
     '''
@@ -51,6 +68,7 @@ class PycTester():
     '''
     def load_header_file(self, filename): 
         # load header code
+        filename=self.__prepare(filename)
         self.load_header(str(open(filename).read()))
         
     '''
@@ -86,6 +104,11 @@ class PycTester():
         
         # import resulting module
         module = importlib.import_module(name + '_')
+        
+        # clean temporary files
+        os.remove(name+"_.c")
+        for f in self.__loadedfiles:
+            os.remove(f)
         
         self.__lib = module.lib
         
