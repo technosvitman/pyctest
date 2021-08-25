@@ -19,9 +19,12 @@ class PycTestCase(unittest.TestCase):
     '''
         @brief call C method with it's name
     '''
-    def call(self, name):
+    def call(self, name, args=None):
         meth = getattr(self, "c_"+name)
-        return meth()
+        if args :
+            return meth(*args)
+        else:
+            return meth()
     
     '''
         @brief set ffi 
