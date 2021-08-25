@@ -123,9 +123,10 @@ class PycTester():
             
     '''
         @brief unitary test for C library
+        @param out the log output
     '''
-    def run(self):      
-        runner = unittest.TextTestRunner(verbosity=2)
+    def run(self, out = sys.stdout):      
+        runner = unittest.TextTestRunner(out, verbosity=2)
         result = runner.run(self.__testcases)
         if not result.wasSuccessful():
             exit(-1)
