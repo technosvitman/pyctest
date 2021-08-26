@@ -12,7 +12,7 @@ import importlib
 import unittest
 from ctypes import *
 from shutil import copyfile
-from . import *
+from .PycTestResult import PycTestResult
 
 class PycTester():
 
@@ -125,9 +125,12 @@ class PycTester():
         @brief unitary test for C library
         @param out the log output
     '''
-    def run(self, out = sys.stdout):      
-        runner = unittest.TextTestRunner(out, verbosity=2)
+    def run(self, out = "test_report.yml"):      
+        runner = unittest.TextTestRunner(sys.stderr, verbosity=2, resultclass=PycTestResult)
         result = runner.run(self.__testcases)
+        if out and out != "":
+            with open(out, "w") as f:
+                result.toFile(f)
         if not result.wasSuccessful():
             exit(-1)
         
