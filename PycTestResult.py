@@ -72,7 +72,7 @@ class PycTestResult(unittest.TextTestResult):
         @param the file to write
     '''
     def toFile(self, file):
-         yaml.dump(self.__report, file, default_flow_style=False, indent=4, sort_keys=False)
+         yaml.dump(self.__report, file, default_flow_style=False, indent=1, sort_keys=False)
 
     
     
