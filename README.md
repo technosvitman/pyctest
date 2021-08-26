@@ -105,3 +105,17 @@ Append to tester previously builded test
 ```C     
     myTester.run()
 ```
+
+## Output file
+
+The report is a yaml file with:
+* Report date
+* Test duration
+* Tests results
+* Success, failure, error counters
+
+You can change the filename on *run* call : 
+
+```C     
+    myTester.run("my_nice_report.yml")
+```
