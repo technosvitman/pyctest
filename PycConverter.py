@@ -39,7 +39,7 @@ class PycConverter():
         
         for s in self.__report["suites"]:
             suite = etree.SubElement(suites, "testsuite")
-            suite.set("name", "PycTest:%s"%s["name"])
+            suite.set("name", "PycTest:%s"%s["title"])
             suite.set("failures", str(s["failure"]))
             suite.set("time", str(s["duration"]))
             sf += s["failure"]
@@ -78,4 +78,4 @@ if __name__ == "__main__":
             conv.appendReport(f, filename)
             
     with open(args.o, "wb") as f:
-        conv.toJunit(args.o)
+        conv.toJunit(f)
