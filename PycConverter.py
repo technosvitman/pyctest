@@ -11,6 +11,9 @@ from lxml import etree
 '''
 class PycConverter():
 
+    '''
+        @brief initialise PycConverter
+    '''
     def __init__(self):
         self.__report = {"suites":[]}
     
