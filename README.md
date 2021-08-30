@@ -119,3 +119,17 @@ You can change the filename on *run* call :
 ```C     
     myTester.run("my_nice_report.yml")
 ```
+
+## Convert report format
+
+Report files can be converted to usual report format like JUnit
+
+Call converter script using : 
+
+```
+    python PycConverter.py -i report1.yml report2.yml .. reportn.yml -o report.xml"
+```
+
+where : 
+* -i file1 file2 .. file3 : the input file list
+* -o file : the JUnit output file
