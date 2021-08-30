@@ -39,7 +39,7 @@ class PycConverter():
         
         for s in self.__report["suites"]:
             suite = etree.SubElement(suites, "testsuite")
-            case.set("name", "PycTest:%s"%s["name"])
+            suite.set("name", "PycTest:%s"%s["name"])
             suite.set("failures", str(s["failure"]))
             suite.set("time", str(s["duration"]))
             sf += s["failure"]
