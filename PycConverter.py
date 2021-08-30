@@ -17,9 +17,11 @@ class PycConverter():
     '''
         @brief append report file to converter
         @param file the report file to append
+        @param file the output report file
     '''
-    def appendReport(self, file):
+    def appendReport(self, file, title):
         yaml_content = yaml.load(file, Loader=yaml.FullLoader)
+        yaml_content["title"] = title
         self.__report["suites"].append(yaml_content)
         
     '''
@@ -33,7 +35,8 @@ class PycConverter():
         sf = 0
         
         for s in self.__report["suites"]:
-            suite = etree.SubElement(suites, "suite")
+            suite = etree.SubElement(suites, "testsuite")
+            case.set("name", "PycTest:%s"%s["name"])
             suite.set("failures", str(s["failure"]))
             suite.set("time", str(s["duration"]))
             sf += s["failure"]
@@ -69,7 +72,7 @@ if __name__ == "__main__":
     conv = PycConverter()
     for filename in args.i :
         with open(filename, "r") as f :
-            conv.appendReport(f)
+            conv.appendReport(f, filename)
             
     with open(args.o, "wb") as f:
-        conv.toJunit(f)
+        conv.toJunit(args.o)
