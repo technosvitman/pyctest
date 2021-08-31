@@ -26,7 +26,6 @@ class PycConverter():
         try:
             with open(filename, "r") as f :                
                 yaml_content = yaml.load(f, Loader=yaml.FullLoader)
-                yaml_content["title"] = filename
         except IOError:
             yaml_content = {\
                     "start":0, \
@@ -40,6 +39,7 @@ class PycConverter():
                             "result":"%s Not found"%filename,\
                             "duration":0}\
                     ]}
+        yaml_content["title"] = filename
         self.__report["suites"].append(yaml_content)
         
     '''
