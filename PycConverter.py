@@ -36,6 +36,7 @@ class PycConverter():
         
         st = 0
         sf = 0
+        sd = 0
         
         for s in self.__report["suites"]:
             suite = etree.SubElement(suites, "testsuite")
@@ -44,6 +45,7 @@ class PycConverter():
             suite.set("time", str(s["duration"]))
             sf += s["failure"]
             t=0
+            sd += s["duration"]
             
             for c in s["tests"]:
                 case = etree.SubElement(suite, "testcase")
@@ -58,6 +60,7 @@ class PycConverter():
         
         suites.set("failures", str(sf))
         suites.set("tests", str(st))
+        suites.set("time", str(sd))
         file.write(etree.tostring(suites, pretty_print=True))
                 
      
