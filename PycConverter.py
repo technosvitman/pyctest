@@ -23,9 +23,11 @@ class PycConverter():
     '''
     def appendReport(self, filename):
         yaml_content = None
+        success=False
         try:
             with open(filename, "r") as f :                
                 yaml_content = yaml.load(f, Loader=yaml.FullLoader)
+                success=True
         except IOError:
             yaml_content = {\
                     "start":0, \
@@ -41,6 +43,7 @@ class PycConverter():
                     ]}
         yaml_content["title"] = filename
         self.__report["suites"].append(yaml_content)
+        return success
         
     '''
         @brief build JUnit report
@@ -92,9 +95,13 @@ if __name__ == "__main__":
     
     args = parser.parse_args()
     conv = PycConverter()
+    success=True
     for filename in args.i :
-        conv.appendReport(filename)
+        success&=conv.appendReport(filename)
         
             
     with open(args.o, "wb") as f:
         conv.toJunit(f)
+        
+    if not success:
+        exit(-1)
