@@ -19,12 +19,27 @@ class PycConverter():
     
     '''
         @brief append report file to converter
-        @param file the report file to append
-        @param file the output report file
+        @param filename the report file to append
     '''
-    def appendReport(self, file, title):
-        yaml_content = yaml.load(file, Loader=yaml.FullLoader)
-        yaml_content["title"] = title
+    def appendReport(self, filename):
+        yaml_content = None
+        try:
+            with open(filename, "r") as f :                
+                yaml_content = yaml.load(f, Loader=yaml.FullLoader)
+                yaml_content["title"] = filename
+        except IOError:
+            yaml_content = {\
+                    "start":0, \
+                    "duration":0,\
+                    "success":0,\
+                    "failure":1,\
+                    "error":0,\
+                    "tests":[\
+                        {\
+                            "title":"Report file not found",\
+                            "result":"%s Not found"%filename,\
+                            "duration":0}\
+                    ]}
         self.__report["suites"].append(yaml_content)
         
     '''
@@ -78,8 +93,8 @@ if __name__ == "__main__":
     args = parser.parse_args()
     conv = PycConverter()
     for filename in args.i :
-        with open(filename, "r") as f :
-            conv.appendReport(f, filename)
+        conv.appendReport(filename)
+        
             
     with open(args.o, "wb") as f:
         conv.toJunit(f)
