@@ -3,6 +3,7 @@ import unittest
 import time
 from datetime import datetime
 import yaml
+from .PycTestCase import PycTestCase
 
 '''
     @brief format output as yaml
@@ -17,6 +18,7 @@ class PycTestResult(unittest.TextTestResult):
                     "error":0,\
                     "tests":[]}
         self.__startdate = 0
+        self.__testStart = 0
         super(PycTestResult, self).__init__(*args, **kwargs)
         
     '''
@@ -26,7 +28,7 @@ class PycTestResult(unittest.TextTestResult):
     '''
     def __appendResult(self, test, result):
         self.__report["tests"].append(\
-            {"title": str(test), "result":str(result)})
+            {"title": str(test), "duration":test.getDuration(), "result":str(result)})
     
     '''
         @see unittest.TestResult

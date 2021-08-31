@@ -48,6 +48,7 @@ class PycConverter():
             for c in s["tests"]:
                 case = etree.SubElement(suite, "testcase")
                 case.set("name", c["title"])
+                case.set("time", str(c["duration"]))
                 t += 1
                 if c["result"] != "ok":
                     failure = etree.SubElement(case, "failure")

@@ -1,4 +1,5 @@
 import unittest
+import time
 
 class PycTestCase(unittest.TestCase):
     
@@ -9,6 +10,26 @@ class PycTestCase(unittest.TestCase):
         super(unittest.TestCase, self).__init__("runTest")
         self.__ffi = None
         self._l = None
+        self.__testDuration=0
+        self.__testStartTime=0
+    
+    '''
+        @see unittest.Testcase
+    '''
+    def setUp(self):
+        self.__testStartTime = time.time()
+   
+    '''
+        @see unittest.Testcase
+    '''
+    def tearDown(self):
+        self.__testDuration = time.time() - self.__testStartTime
+        
+    '''
+        @brief return test duration        
+    '''   
+    def getDuration(self):
+        return self.__testDuration
           
     '''
         @brief return a null pointer
