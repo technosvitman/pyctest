@@ -126,7 +126,7 @@ class PycTester():
         @param out the log output
     '''
     def run(self, out = "test_report.yml"):      
-        runner = unittest.TextTestRunner(sys.stdout, verbosity=2, resultclass=PycTestResult)
+        runner = unittest.TextTestRunner(sys.stderr, verbosity=2, resultclass=PycTestResult)
         result = runner.run(self.__testcases)
         if out and out != "":
             with open(out, "w") as f:
