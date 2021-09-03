@@ -1,2 +1,5 @@
+cffi
+pycparser
+pycparser_fake_libc
 pyaml
 lxml
