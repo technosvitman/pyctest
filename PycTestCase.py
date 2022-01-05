@@ -65,6 +65,15 @@ class PycTestCase(unittest.TestCase):
         return self.__ffi.new(var_type, var_content)
     
     '''
+        @brief cast var
+        @param var_orig the initial variable
+        @param var_type the new variable type
+        @return the new variable
+    '''
+    def cast(self, var_orig, var_type):    
+        return self.__ffi.cast(var_type, var_orig)
+    
+    '''
         @brief get address of a variable
         @param variable the variable
         @return the address
