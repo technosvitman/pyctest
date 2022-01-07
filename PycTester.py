@@ -86,7 +86,7 @@ class PycTester():
         @brief build library from c file
     '''
     def preprocess(self):
-        return subprocess.run(['gcc', '-std=c99', '-nostdinc', '-E', "-I" + pycparser_fake_libc.directory, '-P', '-'],
+        return subprocess.run(['gcc', '-nostdinc', '-E', "-I" + pycparser_fake_libc.directory, '-P', '-'],
             input=self.__includes, stdout=subprocess.PIPE,
             universal_newlines=True, check=True).stdout
             
