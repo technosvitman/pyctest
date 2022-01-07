@@ -1,5 +1,5 @@
-cffi
-pycparser
-pycparser_fake_libc
+cffi==1.14.6
+pycparser==2.20
+pycparser_fake_libc==2.20
 pyaml
 lxml
